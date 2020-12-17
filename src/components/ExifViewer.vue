@@ -1,59 +1,50 @@
 <template>
-  <div class="ev-main">
-    ExifViewer
-    <input type="file"/>
-    <img ref="img" class="photo" src="test_photo.jpg">
-    <div v-if="exifData.length">
-      <div
-        v-for="(item, i) in exifData"
-        :key="i"
+  <div class="ev-viewer">
+    <div class="ev-viewer__left">
+      <img
+        class="ev-viewer__photo"
+        :src="dataUrl"
+        ref="img"
       >
-        <span>{{ item.tag }}</span>
-        <span>{{ item.value }}</span>
-      </div>
+    </div>
+    <div class="ev-viewer__right">
+      <ExifList :exif-data="exifData"/>
     </div>
   </div>
 </template>
 
 <script>
-import EXIF from 'exif-js';
+import { mapState } from 'vuex';
+import ExifList from '@/components/ExifList.vue';
 
 export default {
   name: 'ExifViewer',
+  components: {
+    ExifList,
+  },
   data() {
     return {
-      exifData: [],
     };
   },
-  created() {
-    console.log(EXIF);
-  },
-  mounted() {
-    this.getData().then((res) => {
-      console.log(res);
-      this.exifData = Object.keys(res).map((key) => ({
-        tag: key,
-        value: res[key],
-      }));
-    });
-  },
-  methods: {
-    async getData() {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          EXIF.getData(this.$refs.img, function () {
-            resolve(EXIF.getAllTags(this));
-          });
-        }, 4000);
-      });
-    },
+  computed: {
+    ...mapState(['dataUrl', 'exifData']),
   },
 };
 </script>
 
-<style scoped>
-  .photo {
-    display: block;
-    width: 800px;
+<style lang="scss" scoped>
+  .ev-viewer {
+    display: flex;
+
+    &__left,
+    &__right {
+      padding: 20px;
+    }
+
+    &__photo {
+      display: block;
+      width: 400px;
+      object-fit: contain;
+    }
   }
 </style>
