@@ -1,16 +1,25 @@
 <template>
   <div class="home">
-    <ExifViewer />
+    <ImageLoader />
   </div>
 </template>
 
 <script>
-import ExifViewer from '@/components/ExifViewer.vue';
+import ImageLoader from '@/components/ImageLoader.vue';
 
 export default {
   name: 'Home',
   components: {
-    ExifViewer,
+    ImageLoader,
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  .home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+</style>
