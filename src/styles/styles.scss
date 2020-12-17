@@ -1,0 +1,25 @@
+$color-1: #f8f9faff;
+$color-2: #e9ecefff;
+$color-3: #dee2e6ff;
+$color-4: #ced4daff;
+$color-5: #adb5bdff;
+$color-6: #6c757dff;
+$color-7: #495057ff;
+$color-8: #343a40ff;
+$color-9: #212529ff;
+
+$color-primary: #6F6866;
+
+@mixin button {
+  display: flex;
+  padding: 8px 12px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  color: $color-4;
+  background: $color-6;
+  box-shadow: 1px 1px 12px rgba(12,12,12,0.3);
+
+  &:active {
+    background: $color-5;
+  }
+}
